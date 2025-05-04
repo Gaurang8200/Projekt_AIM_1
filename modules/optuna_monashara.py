@@ -21,11 +21,15 @@ def run_optuna(model, train_subset, val_subset, TrainerClass, *, n_trials=20, se
     def objective(trial):
         bs = trial.suggest_categorical("BS_SUGGEST", [32, 64, 128, 256])
         lr = trial.suggest_float("LR_SUGGEST", 1e-5, 5e-4, log=True)
+        max_epochs = trial.suggest_int("EPOCHS", 5, 30)
+        
         train_dl = DataLoader(train_subset, batch_size=bs, shuffle=True)
         val_dl = DataLoader(val_subset, batch_size=bs, shuffle=False)
+        
         tuner = TrainerClass(model=copy.deepcopy(initial_model), lr=lr)
+        
         best_acc, best_state, no_improve = 0.0, None, 0
-        for epoch in range(1, 6):
+        for epoch in range(1, max_epoch +1):
             tuner.train(train_dl, epochs=1, silent=True)
             val_acc = evaluate_accuracy(tuner, val_dl)
             trial.report(val_acc, epoch)
