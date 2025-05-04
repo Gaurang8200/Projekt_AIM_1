@@ -20,8 +20,8 @@ def run_optuna(model, train_subset, val_subset, TrainerClass, *, n_trials=20, se
     initial_model = copy.deepcopy(model)
     def objective(trial):
         bs = trial.suggest_categorical("BS_SUGGEST", [32, 64, 128, 256])
-        lr = trial.suggest_float("LR_SUGGEST", 1e-5, 5e-4, log=True)
-        max_epochs = trial.suggest_int("EPOCHS", 5, 30)
+        lr = trial.suggest_float("LR_SUGGEST", 1e-5, 5e-3, log=True)
+        max_epochs = trial.suggest_int("EPOCHS", 5, 20)
         
         train_dl = DataLoader(train_subset, batch_size=bs, shuffle=True)
         val_dl = DataLoader(val_subset, batch_size=bs, shuffle=False)
