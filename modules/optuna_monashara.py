@@ -32,6 +32,8 @@ def run_optuna(model, train_subset, val_subset, TrainerClass, *, n_trials=20, se
         for epoch in range(1, max_epochs +1):
             tuner.train(train_dl, epochs=1, silent=True)
             val_acc = evaluate_accuracy(tuner, val_dl)
+            print(f"[DEBUG] Trial {trial.number}, Epoch {epoch}: val_acc = {val_acc:.4f}")
+            val_acc = min(max(val_acc, 0.0), 1.0)
             trial.report(val_acc, epoch)
             if val_acc > best_acc:
                 best_acc, best_state, no_improve = val_acc, copy.deepcopy(tuner.model.state_dict()), 0
