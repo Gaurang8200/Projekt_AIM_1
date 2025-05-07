@@ -21,7 +21,7 @@ def run_optuna(model,
                TrainerClass,
                *,
                n_trials: int = 50,
-               seed: int = 1):
+               seed: int = 42):
     initial_model = copy.deepcopy(model)
 
     def objective(trial):
@@ -54,7 +54,7 @@ def run_optuna(model,
             else:
                 no_improve += 1
 
-            if no_improve >= 5:
+            if no_improve >= 7:
                 raise TrialPruned()
 
         trial.set_user_attr("best_model_state", best_state)
