@@ -28,7 +28,7 @@ def run_optuna(model,
         bs         = trial.suggest_categorical("BS_SUGGEST", [16, 32, 64, 128])
         lr         = trial.suggest_float("LR_SUGGEST", 1e-5, 1e-2, log=True)
         #max_epochs = trial.suggest_int("EPOCHS", 10, 35)
-        max_epochs = 20
+        max_epochs = 20 #25
 
         train_dl = DataLoader(train_subset, batch_size=bs, shuffle=True)
         val_dl   = DataLoader(val_subset,   batch_size=bs, shuffle=False)
@@ -54,7 +54,7 @@ def run_optuna(model,
             else:
                 no_improve += 1
 
-            if no_improve >= 4:
+            if no_improve >= 4: #7
                 raise TrialPruned()
 
         trial.set_user_attr("best_model_state", best_state)
