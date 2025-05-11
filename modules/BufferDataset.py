@@ -1,4 +1,5 @@
 import random
+import torch
 from torch.utils.data import IterableDataset
 
 def evaluate_accuracy(trainer, loader, set_eval: bool = True) -> float:
