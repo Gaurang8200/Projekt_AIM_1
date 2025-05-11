@@ -39,6 +39,9 @@ class ShuffleBufferDataset(IterableDataset):
         self.dataset = dataset
         self.buffer_size = buffer_size
 
+    def __len__(self):
+        return len(self.dataset)
+
     def __iter__(self):
         it = iter(self.dataset)
         buffer = []
