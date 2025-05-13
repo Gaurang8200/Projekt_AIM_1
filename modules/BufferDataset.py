@@ -2,30 +2,6 @@ import random
 import torch
 from torch.utils.data import IterableDataset
 
-def evaluate_accuracy(trainer, loader, set_eval: bool = True) -> float:
-    """
-    Compute accuracy of trainer.model on data from loader.
-
-    Args:
-        trainer: object with .model and .device attributes.
-        loader: DataLoader yielding (xb, yb) batches.
-        set_eval: if True, sets model to eval mode before computing.
-
-    Returns:
-        Accuracy as a float (correct / total).
-    """
-    if set_eval:
-        trainer.model.eval()
-    correct, total = 0, 0
-    with torch.no_grad():
-        for xb, yb in loader:
-            xb, yb = xb.to(trainer.device), yb.to(trainer.device)
-            preds = trainer.model(xb).argmax(dim=1)
-            correct += (preds == yb).sum().item()
-            total += yb.size(0)
-    return correct / total if total > 0 else 0
-
-
 class ShuffleBufferDataset(IterableDataset):
     """
     IterableDataset wrapper that maintains a rolling buffer for non-blocking large-shuffle.
