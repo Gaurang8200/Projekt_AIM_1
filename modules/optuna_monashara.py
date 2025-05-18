@@ -61,7 +61,7 @@ def run_optuna(model,
         return best_acc
 
     sampler = optuna.samplers.TPESampler(seed=seed)
-    pruner  = optuna.pruners.MedianPruner(n_warmup_steps=3)
+    pruner  = optuna.pruners.MedianPruner(n_warmup_steps=2)
     study   = optuna.create_study(
         direction="maximize",
         sampler=sampler,
