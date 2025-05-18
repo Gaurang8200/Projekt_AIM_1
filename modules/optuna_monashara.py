@@ -54,14 +54,14 @@ def run_optuna(model,
             else:
                 no_improve += 1
 
-            if no_improve >= 5: #7
+            if no_improve >= 6: #7
                 raise TrialPruned()
 
         trial.set_user_attr("best_model_state", best_state)
         return best_acc
 
     sampler = optuna.samplers.TPESampler(seed=seed)
-    pruner  = optuna.pruners.MedianPruner(n_warmup_steps=2)
+    pruner  = optuna.pruners.MedianPruner(n_warmup_steps=3)
     study   = optuna.create_study(
         direction="maximize",
         sampler=sampler,
