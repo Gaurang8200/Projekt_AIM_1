@@ -54,7 +54,7 @@ def run_optuna(model,
             else:
                 no_improve += 1
 
-            if no_improve >= 6: #7
+            if no_improve >= 7: #7
                 raise TrialPruned()
 
         trial.set_user_attr("best_model_state", best_state)
