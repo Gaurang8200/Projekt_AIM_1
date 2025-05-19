@@ -26,7 +26,7 @@ def run_optuna(model,
 
     def objective(trial):
         bs         = trial.suggest_categorical("BS_SUGGEST", [16, 32, 64, 128])
-        lr         = trial.suggest_float("LR_SUGGEST", 1e-6, 1e-2, log=True)
+        lr         = trial.suggest_float("LR_SUGGEST", 1e-5, 1e-2, log=True)
         max_epochs = trial.suggest_int("EPOCHS", 25, 25)
         
 
