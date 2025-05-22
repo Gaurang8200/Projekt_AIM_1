@@ -84,7 +84,7 @@ class Trainer(nn.Module):
             prof.start()
 
         if self.device.type == 'cuda':
-        torch.cuda.synchronize()
+            torch.cuda.synchronize()
         
         for epoch in tqdm(range(epochs)):
             model.train()
@@ -129,7 +129,7 @@ class Trainer(nn.Module):
             yield model
 
         if self.device.type == 'cuda':
-        torch.cuda.synchronize()
+            torch.cuda.synchronize()
         
         if args["profiler"]:
             prof.stop()
