@@ -10,7 +10,7 @@ args = {
     "fp16" : False,
     "profiler" : True,
     "gradAcc" : False,
-    #"gradAccIter": 4
+    #"gradAccIter": 4 'commented
 }
 
 class Trainer(nn.Module):
